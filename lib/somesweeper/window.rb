@@ -25,6 +25,7 @@ module Somesweeper
         return unless clicked_cell
         return if clicked_cell.flag
         clicked_cell.open
+        open_around(clicked_cell) if clicked_cell.mine_count == 0
         if clicked_cell.mine
           @board.open_all
         end
@@ -45,6 +46,26 @@ module Somesweeper
 
     def needs_cursor?
       true
+    end
+
+    private
+    def open_around(cell)
+      [
+        [cell.x - 1, cell.y - 1],
+        [cell.x    , cell.y - 1],
+        [cell.x + 1, cell.y - 1],
+        [cell.x - 1, cell.y    ],
+        [cell.x + 1, cell.y    ],
+        [cell.x - 1, cell.y + 1],
+        [cell.x    , cell.y + 1],
+        [cell.x + 1, cell.y + 1],
+      ].each do |key|
+        cell = @board.cell_hash[key]
+        if cell && cell.unknown
+          cell.open
+          open_around(cell) if cell.mine_count == 0
+        end
+      end
     end
   end
 end

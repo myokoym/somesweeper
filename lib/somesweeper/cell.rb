@@ -9,6 +9,8 @@ module Somesweeper
 
     attr_reader :mine, :flag
     attr_reader :x, :y
+    attr_reader :mine_count
+    attr_reader :unknown
 
     def initialize(window,
                    x, y,
@@ -32,6 +34,7 @@ module Somesweeper
       @highlight_color = Gosu::Color::YELLOW
       set_mine if has_mine
       @flag = nil
+      @mine_count = nil
     end
 
     def set_mine
@@ -41,6 +44,7 @@ module Somesweeper
     end
 
     def set_number(num)
+      @mine_count = num
       @number = Image.new(@window,
                           num.to_s,
                           (@height * 0.9).floor)

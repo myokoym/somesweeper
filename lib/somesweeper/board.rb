@@ -7,12 +7,15 @@ module Somesweeper
   class Board
     include Base
 
+    attr_reader :cell_hash
+
     def initialize(window, width, height)
       @window = window
       @width = width
       @height = height
       @cells = []
       create_cells
+      @cell_hash = {}
       set_numbers
     end
 
@@ -42,6 +45,7 @@ module Somesweeper
     def reset
       @cells = []
       create_cells
+      @cell_hash = {}
       set_numbers
       @cells.each {|cell| cell.close }
     end
@@ -75,11 +79,9 @@ module Somesweeper
     end
 
     def set_numbers
-      cell_hash = {}
       @cells.each do |cell|
         key = [cell.x, cell.y]
-        has_mine = cell.mine ? true : false
-        cell_hash[key] = has_mine
+        @cell_hash[key] = cell
       end
       @cells.each do |cell|
         next if cell.mine
@@ -95,7 +97,7 @@ module Somesweeper
           [cell.x    , cell.y + 1],
           [cell.x + 1, cell.y + 1],
         ].each do |key|
-          count += 1 if cell_hash[key]
+          count += 1 if @cell_hash[key] && @cell_hash[key].mine
         end
         cell.set_number(count)
       end
