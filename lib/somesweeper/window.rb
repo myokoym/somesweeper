@@ -11,6 +11,10 @@ module Somesweeper
       @board = Board.new(self, width, height)
     end
 
+    def set_mine_image(path)
+      @board.set_mine_image(path)
+    end
+
     def update
     end
 

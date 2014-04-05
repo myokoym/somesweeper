@@ -47,7 +47,13 @@ module Somesweeper
       create_cells
       @cell_hash = {}
       set_numbers
+      set_mine_images
       @cells.each {|cell| cell.close }
+    end
+
+    def set_mine_image(path)
+      @mine_image = path
+      set_mine_images
     end
 
     private
@@ -100,6 +106,12 @@ module Somesweeper
           count += 1 if @cell_hash[key] && @cell_hash[key].mine
         end
         cell.set_number(count)
+      end
+    end
+
+    def set_mine_images
+      @cells.each do |cell|
+        cell.mine.set_image_file(@mine_image) if cell.mine
       end
     end
   end
