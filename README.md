@@ -19,6 +19,20 @@ Or install it yourself as:
 
     $ gem install somesweeper
 
+### NOTE
+
+This gem has not been released. You can run the following command:
+
+    $ git clone https://github.com/myokoym/somesweeper.git
+    $ cd somesweeper
+    $ ruby -I lib bin/somesweeper
+
+Or install it yourself as:
+
+    $ git clone https://github.com/myokoym/somesweeper.git
+    $ cd somesweeper
+    $ bundle exec rake install
+
 ## Usage
 
 ### Demo
